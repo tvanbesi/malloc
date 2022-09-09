@@ -20,7 +20,7 @@ all :
 			make ${NAME}
 ${NAME} :	${OBJS}
 			ar rc ${NAME} ${OBJS} ${LIB}
-			ln -f ${NAME} ${NAME_LIB}
+			ln -s ${NAME} ${NAME_LIB}
 clean :
 			${RM} ${OBJS}
 fclean :	clean
