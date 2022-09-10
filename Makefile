@@ -3,7 +3,7 @@ OBJS		= ${SRCS:.c=.o}
 INC			= -Ilibft
 LIB			= libft/libft.a
 CC			= clang
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -fpic
 RM			= rm -f
 
 ifndef HOSTTYPE
@@ -13,13 +13,19 @@ endif
 NAME_LIB	= libft_malloc.so
 NAME		= libft_malloc_${HOSTTYPE}.so
 
+LIBC_TOGGLE	=
+ifdef USE_LIBC_MALLOC
+LIBC_TOGGLE	+= -D USE_LIBC_MALLOC
+endif
+
 %.o :		%.c
-			${CC} ${CFLAGS} ${INC} -c $<
+			${CC} ${CFLAGS} ${INC} -c $< ${LIBC_TOGGLE}
 all :
 			cd libft && make EXCLUDE=alloc
 			make ${NAME}
 ${NAME} :	${OBJS}
-			ar rc ${NAME} ${OBJS} ${LIB}
+			${CC} -shared -o ${NAME} ${OBJS}
+			${RM} ${NAME_LIB}
 			ln -s ${NAME} ${NAME_LIB}
 clean :
 			${RM} ${OBJS}
