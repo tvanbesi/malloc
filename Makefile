@@ -1,4 +1,4 @@
-SRCS			= malloc.c
+SRCS			= malloc.c init.c
 OBJS			= ${SRCS:.c=.o}
 INC				= -Ilibft
 LIB				= libft/libft.a
