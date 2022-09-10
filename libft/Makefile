@@ -21,7 +21,12 @@ SRCS_NOEXT	=	ft_strchr.c \
 				ft_memchr.c \
 				ft_memcpy.c \
 				ft_memmove.c \
-				ft_memset.c
+				ft_memset.c \
+				ft_lstsize.c \
+				ft_lstlast.c \
+				ft_lstadd_back.c \
+				ft_lstadd_front.c \
+				ft_lstiter.c
 # source code files using the write external functions
 SRCS_WRITE	=	ft_putchar_fd.c \
 				ft_putendl_fd.c \
@@ -38,7 +43,11 @@ SRCS_ALLOC	=	ft_itoa.c \
 				ft_strtrim.c \
 				ft_substr.c \
 				ft_split.c \
-				ft_calloc.c
+				ft_calloc.c \
+				ft_lstmap.c \
+				ft_lstnew.c \
+				ft_lstclear.c \
+				ft_lstdelone.c
 
 OBJS_NOEXT	=	${SRCS_NOEXT:.c=.o}
 OBJS_WRITE	=	${SRCS_WRITE:.c=.o}
