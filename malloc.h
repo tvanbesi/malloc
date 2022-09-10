@@ -11,10 +11,6 @@
 
 #ifndef USE_LIBC_MALLOC
 
-#ifndef MAP_ANONYMOUS
-#define MAP_ANONYMOUS 0x20
-#endif
-
 #define MALLOC_TINY		128
 #define MALLOC_SMALL	256
 
