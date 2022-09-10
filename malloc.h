@@ -19,4 +19,12 @@ void    *malloc(size_t size);
 void    *realloc(void *ptr, size_t size);
 #endif
 
+/*
+**	Debug
+*/
+
+#define STD_ERR 2
+#define PUTERR_S(msg) ft_putstr_fd(msg, STD_ERR)
+#define PUTERR_N(msg) ft_putnbr_fd(msg, STD_ERR)
+
 #endif

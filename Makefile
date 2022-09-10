@@ -1,10 +1,11 @@
-SRCS		= malloc.c
-OBJS		= ${SRCS:.c=.o}
-INC			= -Ilibft
-LIB			= libft/libft.a
-CC			= clang
-CFLAGS		= -Wall -Wextra -Werror -fpic
-RM			= rm -f
+SRCS			= malloc.c
+OBJS			= ${SRCS:.c=.o}
+INC				= -Ilibft
+LIB				= libft/libft.a
+CC				= clang
+CFLAGS_DEBUG	= -g -ggdb
+CFLAGS			= -Wall -Wextra -Werror -fpic ${CFLAGS_DEBUG}
+RM				= rm -f
 
 ifndef HOSTTYPE
 HOSTTYPE = $(shell uname -m)_$(shell uname -s)
