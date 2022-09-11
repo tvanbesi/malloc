@@ -17,6 +17,8 @@ NAME		= libft_malloc_${HOSTTYPE}.so
 LIBC_TOGGLE	=
 ifdef USE_LIBC_MALLOC
 LIBC_TOGGLE	+= -D USE_LIBC_MALLOC
+SRCS = malloc.c
+OBJS = ${SRCS:.c=.o}
 endif
 
 %.o :		%.c
