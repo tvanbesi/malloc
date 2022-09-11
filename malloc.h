@@ -14,7 +14,7 @@
 #define MALLOC_TINY		128
 #define MALLOC_SMALL	256
 
-#define BUCKET_POINTER_COUNT	100;
+#define BUCKET_POINTER_COUNT	100
 
 typedef struct s_memory_pointer
 {
