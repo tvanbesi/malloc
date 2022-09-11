@@ -12,7 +12,7 @@ t_bucket_size   g_bucket_size;
 */
 void init_bucket_size()
 {
-    int size, page_offset;
+    int size;
     int mbucket_size, mpointer_size;
 
     mbucket_size = sizeof(t_memory_bucket);
@@ -21,20 +21,10 @@ void init_bucket_size()
     size = (mpointer_size + MALLOC_TINY);
     size *= BUCKET_POINTER_COUNT;
     size += mbucket_size;
-    page_offset = size % getpagesize();
-    if (page_offset != 0)
-    {
-        size = size - page_offset + getpagesize();
-    }
-    g_bucket_size.tiny = size;
+	g_bucket_size.tiny = nearest_multiple_of_pagesize(size);
 
     size = (mpointer_size + MALLOC_SMALL);
     size *= BUCKET_POINTER_COUNT;
     size += mbucket_size;
-    page_offset = size % getpagesize();
-    if (page_offset != 0)
-    {
-        size = size - page_offset + getpagesize();
-    }
-    g_bucket_size.small = size;
+	g_bucket_size.small = nearest_multiple_of_pagesize(size);
 }

@@ -44,6 +44,7 @@ void    *realloc(void *ptr, size_t size);
 **	Internal functions
 */
 
+int		nearest_multiple_of_pagesize(int n);
 void	init_bucket_size();
 
 /*
