@@ -1,6 +1,7 @@
 #include "malloc.h"
 
 static void initialize_pointers(void *ptr, t_bucket_type type);
+static bool bucket_is_empty(void *bucket);
 
 void append_memory_bucket(t_memory_bucket **head, t_memory_bucket *add)
 {
@@ -57,6 +58,29 @@ void *create_memory_bucket(size_t size)
 	return bucket_ptr;
 }
 
+void destroy_bucket(t_memory_bucket *bucket_to_destroy)
+{
+	t_memory_bucket	*current, *previous;
+
+	if (bucket_to_destroy == g_memory_buckets)
+	{
+		g_memory_buckets = g_memory_buckets->next;
+		return;
+	}
+	previous = g_memory_buckets;
+	current = g_memory_buckets->next;
+	while (current)
+	{
+		if (current == bucket_to_destroy)
+		{
+			previous->next = current->next;
+			return;
+		}
+		previous = current;
+		current = current->next;
+	}
+}
+
 static void initialize_pointers(void *ptr, t_bucket_type type)
 {
 	size_t	offset;
@@ -79,4 +103,49 @@ static void initialize_pointers(void *ptr, t_bucket_type type)
 		ptr = (char*)ptr + offset;
 		((t_memory_pointer*)ptr)->size = 0;
 	}
+}
+
+t_memory_bucket *find_empty_bucket()
+{
+	t_memory_bucket	*current;
+
+	current = g_memory_buckets;
+	while (current)
+	{
+		if (bucket_is_empty(current))
+		{
+			return current;
+		}
+		current = current->next;
+	}
+	return NULL;
+}
+
+static bool bucket_is_empty(void *bucket)
+{
+	void	*ptr;
+	size_t	offset;
+
+	ptr = (char*)bucket + sizeof(t_memory_bucket);
+	switch (((t_memory_bucket*)bucket)->type)
+	{
+	case TINY:
+		offset = TINY_OFFSET;
+		break;
+	case SMALL:
+		offset = SMALL_OFFSET;
+		break;
+	case LARGE:
+		return pointer_available(ptr);
+		break;
+	}
+	for (int i = 0; i < BUCKET_POINTER_COUNT; ++i)
+	{
+		if (!pointer_available(ptr))
+		{
+			return false;
+		}
+		ptr = (char*)ptr + offset;
+	}
+	return true;
 }

@@ -6,6 +6,12 @@ void free(void *ptr)
 {
 	ptr = (char*)ptr - sizeof(t_memory_pointer);
 	alloc_pointer(ptr, 0);
+	t_memory_bucket	*bucket = find_empty_bucket();
+	if (bucket)
+	{
+		destroy_bucket(bucket);
+		munmap(bucket, bucket->size);
+	}
 }
 
 void *malloc(size_t size)

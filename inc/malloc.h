@@ -62,9 +62,11 @@ int		nearest_multiple_of_pagesize(int n);
 void	init_bucket_size();
 void	append_memory_bucket(t_memory_bucket **head, t_memory_bucket *add);
 void	alloc_pointer(t_memory_pointer *ptr, size_t size);
+void	destroy_bucket(t_memory_bucket *bucket_to_destroy);
 void	*create_memory_bucket(size_t size);
 void	*get_available_pointer(size_t size);
 t_bucket_type get_type_by_size(size_t size);
+t_memory_bucket	*find_empty_bucket();
 
 /*
 **	Debug
