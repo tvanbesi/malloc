@@ -34,8 +34,6 @@ void *get_available_pointer(size_t size)
 **	return:
 **		- NULL if no available memory was found
 **		- a pointer to available memory otherwise
-**
-**	Additionally it sets the memory as unavailable if any is found.
 */
 static void *find_available_pointer_in_memory(t_bucket_type type)
 {
