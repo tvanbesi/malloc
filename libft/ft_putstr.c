@@ -7,6 +7,5 @@
 void
 	ft_putstr(char *s)
 {
-	while (*s)
-		ft_putchar(*s++);
+	write(1, s, ft_strlen(s));
 }
