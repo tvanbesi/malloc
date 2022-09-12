@@ -47,12 +47,10 @@ void *create_memory_bucket(size_t size)
 	{
 		return NULL;
 	}
-
 	// Initializing the memory bucket
 	((t_memory_bucket*)bucket_ptr)->next = NULL;
 	((t_memory_bucket*)bucket_ptr)->size = bucket_size;
 	((t_memory_bucket*)bucket_ptr)->type = bucket_type;
-
 	// Initializing the memory bucket pointers
 	initialize_pointers(bucket_ptr, bucket_type);
 	return bucket_ptr;
