@@ -1,15 +1,12 @@
 #ifndef MALLOC_H
 #define MALLOC_H
 
-#include <stdlib.h>
 #include <sys/mman.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/resource.h>
 
-#include "libft/libft.h"
-
-#ifndef USE_LIBC_MALLOC
+#include "libft.h"
 
 #define MALLOC_TINY		128
 #define MALLOC_SMALL	256
@@ -65,7 +62,5 @@ void	*create_memory_bucket(size_t size);
 #define STD_ERR 2
 #define PUTERR_S(msg) ft_putstr_fd(msg, STD_ERR)
 #define PUTERR_N(msg) ft_putnbr_fd(msg, STD_ERR)
-
-#endif
 
 #endif

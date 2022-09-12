@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-#ifndef USE_LIBC_MALLOC
+t_memory_bucket	*g_memory_buckets;
 
 void free(void *ptr)
 {
@@ -10,6 +10,10 @@ void free(void *ptr)
 void *malloc(size_t size)
 {
 	(void)size;
+	if (g_memory_buckets == NULL)
+	{
+		init_bucket_size();
+	}
 	return NULL;
 }
 
@@ -19,5 +23,3 @@ void *realloc(void *ptr, size_t size)
 	(void)size;
 	return NULL;
 }
-
-#endif
