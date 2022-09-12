@@ -62,18 +62,17 @@ static void initialize_pointers(void *ptr, t_bucket_type type)
 	size_t	offset;
 
 	ptr = (char*)ptr + sizeof(t_memory_bucket);
-	if (type == LARGE)
+	switch (type)
 	{
+	case TINY:
+		offset = TINY_OFFSET;
+		break;
+	case SMALL:
+		offset = SMALL_OFFSET;
+		break;
+	case LARGE:
 		((t_memory_pointer*)ptr)->size = 0;
 		return;
-	}
-	if (type == TINY)
-	{
-		offset = TINY_OFFSET;
-	}
-	else if (type == SMALL)
-	{
-		offset = SMALL_OFFSET;
 	}
 	for (int i = 0; i < BUCKET_POINTER_COUNT; ++i)
 	{
