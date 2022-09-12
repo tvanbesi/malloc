@@ -1,6 +1,7 @@
 #include "malloc.h"
 
-static void show_pointer(void *ptr);
+static void show_pointer(void *ptr, size_t *count);
+static void print_octet(size_t n);
 
 void show_alloc_mem()
 {
@@ -8,7 +9,9 @@ void show_alloc_mem()
 	void			*current_pointer;
 	t_memory_bucket	current_bucket_data;
 	int				offset;
+	static size_t	count;
 
+	count = 0;
 	current_bucket = g_memory_buckets;
 	while (current_bucket)
 	{
@@ -37,7 +40,7 @@ void show_alloc_mem()
 				current_pointer = (char*)current_bucket + (i * offset);
 				if (!pointer_available(current_pointer))
 				{
-					show_pointer(current_pointer);
+					show_pointer(current_pointer, &count);
 				}
 			}
 		}
@@ -45,14 +48,16 @@ void show_alloc_mem()
 		{
 			if (!pointer_available(current_bucket))
 			{
-				show_pointer(current_bucket);
+				show_pointer(current_bucket, &count);
 			}
 		}
 		current_bucket = current_bucket_data.next;
 	}
+	ft_putstr("Total : ");
+	print_octet(count);
 }
 
-static void show_pointer(void *ptr)
+static void show_pointer(void *ptr, size_t *count)
 {
 	t_memory_pointer	*mptr = ptr;
 
@@ -60,9 +65,15 @@ static void show_pointer(void *ptr)
 	ft_putstr(" - ");
 	ft_putnbr_lu_base_fd((unsigned long)ptr + mptr->size, HEX_CHARSET, STD_COUT);
 	ft_putstr(" : ");
-	ft_putnbr_fd(mptr->size, STD_COUT);
-	ft_putstr_fd(" octet", STD_COUT);
-	if (mptr->size > 1)
+	print_octet(mptr->size);
+	*count += mptr->size;
+}
+
+static void print_octet(size_t n)
+{
+	ft_putnbr_fd(n, STD_COUT);
+	ft_putstr(" octet");
+	if (n > 1)
 		ft_putendl_fd("s", STD_COUT);
 	else
 		ft_putchar('\n');
