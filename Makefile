@@ -33,9 +33,9 @@ ${NAME} :		${NAME_BLANK} ${OBJS}
 ${NAME_BLANK} :	${ODIR}/blank.o
 				${CC} -shared -o ${NAME_BLANK} ${ODIR}/blank.o
 clean :
-				${RM} ${OBJS}
+				${RM} ${OBJS} ${ODIR}/blank.o
 fclean :		clean
-				${RM} ${NAME} ${NAME_LIB}
+				${RM} ${NAME} ${NAME_LIB} ${NAME_BLANK}
 re :			fclean all
 .PHONY :
 				all ${NAME} clean fclean re
