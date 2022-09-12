@@ -5,8 +5,13 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/resource.h>
+#include <stdbool.h>
 
 #include "libft.h"
+
+#define STD_COUT	1
+
+#define HEX_CHARSET	"0123456789ABCDEF"
 
 #define MALLOC_TINY		128
 #define MALLOC_SMALL	256
@@ -47,10 +52,13 @@ void    free(void *ptr);
 void    *malloc(size_t size);
 void    *realloc(void *ptr, size_t size);
 
+void	show_alloc_mem();
+
 /*
 **	Internal functions
 */
 
+bool	pointer_available(t_memory_pointer *ptr);
 int		nearest_multiple_of_pagesize(int n);
 void	init_bucket_size();
 void	*create_memory_bucket(size_t size);
