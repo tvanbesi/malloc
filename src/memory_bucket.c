@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-static void initialize_pointers(char *ptr, t_bucket_type type);
+static void initialize_pointers(void *ptr, t_bucket_type type);
 
 void *create_memory_bucket(size_t size)
 {
@@ -40,14 +40,11 @@ void *create_memory_bucket(size_t size)
 	return bucket_ptr;
 }
 
-/*
-**	ptr is char* to allow pointer arithmetic
-*/
-static void initialize_pointers(char *ptr, t_bucket_type type)
+static void initialize_pointers(void *ptr, t_bucket_type type)
 {
 	size_t	offset;
 
-	ptr += sizeof(t_memory_bucket);
+	ptr = (char*)ptr + sizeof(t_memory_bucket);
 	if (type == LARGE)
 	{
 		((t_memory_pointer*)ptr)->size = 0;
@@ -63,6 +60,7 @@ static void initialize_pointers(char *ptr, t_bucket_type type)
 	}
 	for (int i = 0; i < BUCKET_POINTER_COUNT; ++i)
 	{
-		((t_memory_pointer*)&ptr[i * offset])->size = 0;
+		ptr = (char*)ptr + offset;
+		((t_memory_pointer*)ptr)->size = 0;
 	}
 }
