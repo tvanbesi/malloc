@@ -15,3 +15,19 @@ int nearest_multiple_of_pagesize(int n)
 	}
 	return n;
 }
+
+t_bucket_type get_type_by_size(size_t size)
+{
+	if (size < MALLOC_TINY)
+	{
+		return TINY;
+	}
+	else if (size < MALLOC_SMALL)
+	{
+		return SMALL;
+	}
+	else
+	{
+		return LARGE;
+	}
+}

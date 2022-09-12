@@ -11,18 +11,7 @@ void *get_available_pointer(size_t size)
 	void			*ptr;
 	t_bucket_type	type;
 
-	if (size < MALLOC_TINY)
-	{
-		type = TINY;
-	}
-	else if (size < MALLOC_SMALL)
-	{
-		type = SMALL;
-	}
-	else
-	{
-		type = LARGE;
-	}
+	type = get_type_by_size(size);
 	ptr = find_available_pointer_in_memory(type);
 	// Create new bucket if no available pointer was found
 	if (ptr == NULL)
