@@ -4,6 +4,7 @@ t_memory_bucket	*g_memory_buckets;
 
 void free(void *ptr)
 {
+	ptr = (char*)ptr - sizeof(t_memory_pointer);
 	alloc_pointer(ptr, 0);
 }
 
@@ -24,6 +25,7 @@ void *realloc(void *ptr, size_t size)
 	void	*new_ptr;
 	size_t	ptr_original_size;
 
+	ptr = (char*)ptr - sizeof(t_memory_pointer);
 	ptr_original_size = ((t_memory_pointer*)ptr)->size;
 	if (get_type_by_size(ptr_original_size) >= get_type_by_size(size))
 	{

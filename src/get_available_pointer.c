@@ -25,6 +25,7 @@ void *get_available_pointer(size_t size)
 		ptr = (char*)ptr + sizeof(t_memory_bucket);
 	}
 	alloc_pointer(ptr, size);
+	ptr = (char*)ptr + sizeof(t_memory_pointer);
 	return ptr;
 }
 
