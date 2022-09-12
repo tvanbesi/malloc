@@ -9,12 +9,14 @@ void free(void *ptr)
 
 void *malloc(size_t size)
 {
-	(void)size;
+	void	*ptr;
+
 	if (g_memory_buckets == NULL)
 	{
 		init_bucket_size();
 	}
-	return NULL;
+	ptr = get_available_pointer(size);
+	return ptr;
 }
 
 void *realloc(void *ptr, size_t size)

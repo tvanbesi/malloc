@@ -51,7 +51,6 @@ extern t_memory_bucket	*g_memory_buckets;
 void    free(void *ptr);
 void    *malloc(size_t size);
 void    *realloc(void *ptr, size_t size);
-
 void	show_alloc_mem();
 
 /*
@@ -61,7 +60,10 @@ void	show_alloc_mem();
 bool	pointer_available(t_memory_pointer *ptr);
 int		nearest_multiple_of_pagesize(int n);
 void	init_bucket_size();
+void	append_memory_bucket(t_memory_bucket **head, t_memory_bucket *add);
+void	alloc_pointer(t_memory_pointer *ptr, size_t size);
 void	*create_memory_bucket(size_t size);
+void	*get_available_pointer(size_t size);
 
 /*
 **	Debug

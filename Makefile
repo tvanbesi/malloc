@@ -1,7 +1,9 @@
 SDIR			= src
 ODIR			= obj
-_SRCS			=	malloc.c init.c memory_bucket.c memory_pointer.c utils.c \
-					show_alloc_mem.c
+_SRCS			=	malloc.c show_alloc_mem.c \
+					memory_bucket.c memory_pointer.c \
+					get_available_pointer.c \
+					init.c utils.c
 _OBJS			= ${_SRCS:.c=.o}
 SRCS			= ${_SRCS:%=${SDIR}/%}
 OBJS			= ${_OBJS:%=${ODIR}/%}

@@ -2,6 +2,23 @@
 
 static void initialize_pointers(void *ptr, t_bucket_type type);
 
+void append_memory_bucket(t_memory_bucket **head, t_memory_bucket *add)
+{
+	t_memory_bucket	*current;
+
+	if (*head == NULL)
+	{
+		*head = add;
+		return;
+	}
+	current = *head;
+	while (current->next)
+	{
+		current = current->next;
+	}
+	current->next = add;
+}
+
 void *create_memory_bucket(size_t size)
 {
 	void			*bucket_ptr;
