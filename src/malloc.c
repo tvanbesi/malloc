@@ -4,6 +4,10 @@ t_memory_bucket	*g_memory_buckets;
 
 void free(void *ptr)
 {
+	if (ptr == NULL)
+	{
+		return;
+	}
 	ptr = (char*)ptr - sizeof(t_memory_pointer);
 	alloc_pointer(ptr, 0);
 	t_memory_bucket	*bucket = find_empty_bucket();
@@ -18,6 +22,10 @@ void *malloc(size_t size)
 {
 	void	*ptr;
 
+	if (size == 0)
+	{
+		return NULL;
+	}
 	if (g_memory_buckets == NULL)
 	{
 		init_bucket_size();
@@ -31,6 +39,15 @@ void *realloc(void *ptr, size_t size)
 	void	*new_ptr;
 	size_t	ptr_original_size;
 
+	if (ptr == NULL)
+	{
+		return malloc(size);
+	}
+	else if (size == 0)
+	{
+		free(ptr);
+		return NULL;
+	}
 	ptr = (char*)ptr - sizeof(t_memory_pointer);
 	ptr_original_size = ((t_memory_pointer*)ptr)->size;
 	if (get_type_by_size(ptr_original_size) >= get_type_by_size(size))
