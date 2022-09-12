@@ -4,7 +4,7 @@ t_memory_bucket	*g_memory_buckets;
 
 void free(void *ptr)
 {
-	(void)ptr;
+	alloc_pointer(ptr, 0);
 }
 
 void *malloc(size_t size)
