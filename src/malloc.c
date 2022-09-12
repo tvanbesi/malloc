@@ -1,6 +1,6 @@
 #include "malloc.h"
 
-t_memory_bucket	*g_memory_buckets;
+t_memory_bucket *g_memory_buckets;
 
 void free(void *ptr)
 {
@@ -8,9 +8,9 @@ void free(void *ptr)
 	{
 		return;
 	}
-	ptr = (char*)ptr - sizeof(t_memory_pointer);
+	ptr = (char *)ptr - sizeof(t_memory_pointer);
 	alloc_pointer(ptr, 0);
-	t_memory_bucket	*bucket = find_empty_bucket();
+	t_memory_bucket *bucket = find_empty_bucket();
 	if (bucket)
 	{
 		destroy_bucket(bucket);
@@ -20,7 +20,7 @@ void free(void *ptr)
 
 void *malloc(size_t size)
 {
-	void	*ptr;
+	void *ptr;
 
 	if (size == 0)
 	{
@@ -36,8 +36,8 @@ void *malloc(size_t size)
 
 void *realloc(void *ptr, size_t size)
 {
-	void	*new_ptr;
-	size_t	ptr_original_size;
+	void *new_ptr;
+	size_t ptr_original_size;
 
 	if (ptr == NULL)
 	{
@@ -48,8 +48,8 @@ void *realloc(void *ptr, size_t size)
 		free(ptr);
 		return NULL;
 	}
-	ptr = (char*)ptr - sizeof(t_memory_pointer);
-	ptr_original_size = ((t_memory_pointer*)ptr)->size;
+	ptr = (char *)ptr - sizeof(t_memory_pointer);
+	ptr_original_size = ((t_memory_pointer *)ptr)->size;
 	if (get_type_by_size(ptr_original_size) >= get_type_by_size(size))
 	{
 		alloc_pointer(ptr, size);
@@ -61,10 +61,9 @@ void *realloc(void *ptr, size_t size)
 		return NULL;
 	}
 	ft_memcpy(
-		(char*)new_ptr + sizeof(t_memory_pointer),
-		(char*)ptr + sizeof(t_memory_pointer),
-		ptr_original_size - sizeof(t_memory_pointer)
-		);
+		(char *)new_ptr + sizeof(t_memory_pointer),
+		(char *)ptr + sizeof(t_memory_pointer),
+		ptr_original_size - sizeof(t_memory_pointer));
 	free(ptr);
 	return new_ptr;
 }

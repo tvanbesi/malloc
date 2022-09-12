@@ -8,8 +8,8 @@ static void *find_available_pointer_in_bucket(void *bucket_ptr, t_bucket_type ty
 */
 void *get_available_pointer(size_t size)
 {
-	void			*ptr;
-	t_bucket_type	type;
+	void *ptr;
+	t_bucket_type type;
 
 	type = get_type_by_size(size);
 	ptr = find_available_pointer_in_memory(type);
@@ -22,10 +22,10 @@ void *get_available_pointer(size_t size)
 			return NULL;
 		}
 		append_memory_bucket(&g_memory_buckets, ptr);
-		ptr = (char*)ptr + sizeof(t_memory_bucket);
+		ptr = (char *)ptr + sizeof(t_memory_bucket);
 	}
 	alloc_pointer(ptr, size);
-	ptr = (char*)ptr + sizeof(t_memory_pointer);
+	ptr = (char *)ptr + sizeof(t_memory_pointer);
 	return ptr;
 }
 
@@ -38,8 +38,8 @@ void *get_available_pointer(size_t size)
 */
 static void *find_available_pointer_in_memory(t_bucket_type type)
 {
-	t_memory_bucket	*current;
-	void			*ptr;
+	t_memory_bucket *current;
+	void *ptr;
 
 	current = g_memory_buckets;
 	while (current)
@@ -75,14 +75,14 @@ static void *find_available_pointer_in_bucket(void *bucket_ptr, t_bucket_type ty
 	default:
 		return NULL;
 	}
-	bucket_ptr = (char*)bucket_ptr + sizeof(t_memory_bucket);
+	bucket_ptr = (char *)bucket_ptr + sizeof(t_memory_bucket);
 	for (int i = 0; i < BUCKET_POINTER_COUNT; ++i)
 	{
 		if (pointer_available(bucket_ptr))
 		{
 			return bucket_ptr;
 		}
-		bucket_ptr = (char*)bucket_ptr + offset;
+		bucket_ptr = (char *)bucket_ptr + offset;
 	}
 	return NULL;
 }

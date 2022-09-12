@@ -7,8 +7,8 @@ static void show_bucket_data(t_memory_bucket *bucket, int *offset);
 
 void show_alloc_mem()
 {
-	t_memory_bucket	*current;
-	static size_t	count;
+	t_memory_bucket *current;
+	static size_t count;
 
 	count = 0;
 	current = g_memory_buckets;
@@ -21,13 +21,13 @@ void show_alloc_mem()
 
 static void show_pointers_in_bucket(void *bucket, size_t *count)
 {
-	int				offset;
-	void			*ptr;
-	t_memory_bucket	bucket_data;
+	int offset;
+	void *ptr;
+	t_memory_bucket bucket_data;
 
 	show_bucket_data(bucket, &offset);
-	bucket_data = *(t_memory_bucket*)bucket;
-	ptr = (char*)bucket + sizeof(t_memory_bucket);
+	bucket_data = *(t_memory_bucket *)bucket;
+	ptr = (char *)bucket + sizeof(t_memory_bucket);
 	if (bucket_data.type != LARGE)
 	{
 		for (int i = 0; i < BUCKET_POINTER_COUNT; ++i)
@@ -36,10 +36,10 @@ static void show_pointers_in_bucket(void *bucket, size_t *count)
 			{
 				show_pointer(ptr, count);
 			}
-			ptr = (char*)ptr + offset;
+			ptr = (char *)ptr + offset;
 		}
 	}
-	else // current_bucket_data.type == LARGE
+	else // bucket_data.type == LARGE
 	{
 		if (!pointer_available(ptr))
 		{
@@ -72,9 +72,9 @@ static void show_bucket_data(t_memory_bucket *bucket, int *offset)
 
 static void show_pointer(void *ptr, size_t *count)
 {
-	t_memory_pointer	*mptr = ptr;
+	t_memory_pointer *mptr = ptr;
 
-	ptr = (char*)ptr + sizeof(t_memory_pointer);
+	ptr = (char *)ptr + sizeof(t_memory_pointer);
 	ft_putnbr_lu_base_fd((unsigned long)ptr, HEX_CHARSET, STD_COUT);
 	ft_putstr(" - ");
 	ft_putnbr_lu_base_fd((unsigned long)ptr + mptr->size, HEX_CHARSET, STD_COUT);

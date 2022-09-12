@@ -5,7 +5,7 @@ static bool bucket_is_empty(void *bucket);
 
 void append_memory_bucket(t_memory_bucket **head, t_memory_bucket *add)
 {
-	t_memory_bucket	*current;
+	t_memory_bucket *current;
 
 	if (*head == NULL)
 	{
@@ -22,9 +22,9 @@ void append_memory_bucket(t_memory_bucket **head, t_memory_bucket *add)
 
 void *create_memory_bucket(size_t size)
 {
-	void			*bucket_ptr;
-	size_t			bucket_size;
-	t_bucket_type	bucket_type;
+	void *bucket_ptr;
+	size_t bucket_size;
+	t_bucket_type bucket_type;
 
 	// Allocating the memory bucket
 	if (size <= MALLOC_TINY)
@@ -48,9 +48,9 @@ void *create_memory_bucket(size_t size)
 		return NULL;
 	}
 	// Initializing the memory bucket
-	((t_memory_bucket*)bucket_ptr)->next = NULL;
-	((t_memory_bucket*)bucket_ptr)->size = bucket_size;
-	((t_memory_bucket*)bucket_ptr)->type = bucket_type;
+	((t_memory_bucket *)bucket_ptr)->next = NULL;
+	((t_memory_bucket *)bucket_ptr)->size = bucket_size;
+	((t_memory_bucket *)bucket_ptr)->type = bucket_type;
 	// Initializing the memory bucket pointers
 	initialize_pointers(bucket_ptr, bucket_type);
 	return bucket_ptr;
@@ -58,7 +58,7 @@ void *create_memory_bucket(size_t size)
 
 void destroy_bucket(t_memory_bucket *bucket_to_destroy)
 {
-	t_memory_bucket	*current, *previous;
+	t_memory_bucket *current, *previous;
 
 	if (bucket_to_destroy == g_memory_buckets)
 	{
@@ -81,9 +81,9 @@ void destroy_bucket(t_memory_bucket *bucket_to_destroy)
 
 static void initialize_pointers(void *ptr, t_bucket_type type)
 {
-	size_t	offset;
+	size_t offset;
 
-	ptr = (char*)ptr + sizeof(t_memory_bucket);
+	ptr = (char *)ptr + sizeof(t_memory_bucket);
 	switch (type)
 	{
 	case TINY:
@@ -93,19 +93,19 @@ static void initialize_pointers(void *ptr, t_bucket_type type)
 		offset = SMALL_OFFSET;
 		break;
 	case LARGE:
-		((t_memory_pointer*)ptr)->size = 0;
+		((t_memory_pointer *)ptr)->size = 0;
 		return;
 	}
 	for (int i = 0; i < BUCKET_POINTER_COUNT; ++i)
 	{
-		ptr = (char*)ptr + offset;
-		((t_memory_pointer*)ptr)->size = 0;
+		ptr = (char *)ptr + offset;
+		((t_memory_pointer *)ptr)->size = 0;
 	}
 }
 
 t_memory_bucket *find_empty_bucket()
 {
-	t_memory_bucket	*current;
+	t_memory_bucket *current;
 
 	current = g_memory_buckets;
 	while (current)
@@ -121,11 +121,11 @@ t_memory_bucket *find_empty_bucket()
 
 static bool bucket_is_empty(void *bucket)
 {
-	void	*ptr;
-	size_t	offset;
+	void *ptr;
+	size_t offset;
 
-	ptr = (char*)bucket + sizeof(t_memory_bucket);
-	switch (((t_memory_bucket*)bucket)->type)
+	ptr = (char *)bucket + sizeof(t_memory_bucket);
+	switch (((t_memory_bucket *)bucket)->type)
 	{
 	case TINY:
 		offset = TINY_OFFSET;
@@ -143,7 +143,7 @@ static bool bucket_is_empty(void *bucket)
 		{
 			return false;
 		}
-		ptr = (char*)ptr + offset;
+		ptr = (char *)ptr + offset;
 	}
 	return true;
 }
