@@ -10,6 +10,7 @@ int main()
 	seed = 42;
 	srand(seed);
 	(void)seed;
+
 	for (int i = 0; i < n; ++i)
 	{
 		r1 = (rand() % limit) + 1;
