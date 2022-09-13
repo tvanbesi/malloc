@@ -61,7 +61,7 @@ void *realloc(void *ptr, size_t size)
 		return NULL;
 	}
 	ft_memcpy(
-		(char *)new_ptr + sizeof(t_memory_pointer),
+		new_ptr,
 		(char *)ptr + sizeof(t_memory_pointer),
 		ptr_original_size - sizeof(t_memory_pointer));
 	free(ptr);
