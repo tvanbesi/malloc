@@ -39,7 +39,7 @@ void *create_memory_bucket(size_t size)
 	}
 	else // size > MALLOC_SMALL
 	{
-		bucket_size = nearest_multiple_of_pagesize(size + sizeof(t_memory_bucket));
+		bucket_size = nearest_multiple_of_pagesize(size + sizeof(t_memory_bucket) + sizeof(t_memory_pointer));
 		bucket_type = LARGE;
 	}
 	bucket_ptr = mmap(NULL, bucket_size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, -1, 0);
