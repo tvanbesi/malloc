@@ -1,12 +1,16 @@
 #include "test.h"
 
-int main()
+int main(int argc, char **argv)
 {
 	int limit, n, r1, r2;
 	unsigned int seed;
 
-	n = 10000;
-	limit = 10000;
+	if (argc != 2)
+	{
+		return 1;
+	}
+	n = 1000;
+	limit = atoi(argv[1]);
 	seed = 42;
 	srand(seed);
 	(void)seed;
