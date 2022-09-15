@@ -40,6 +40,7 @@ void unit_test_content(size_t nptr, size_t size_ptr)
 	for (size_t i = 0; i < nptr; ++i)
 	{
 		ft_putnstr(s[i], size_ptr);
+		ft_putchar('\n');
 	}
 	// Testing realloc
 	for (size_t i = 0; i < nptr; ++i)
