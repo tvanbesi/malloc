@@ -53,6 +53,7 @@ void *realloc(void *ptr, size_t size)
 	if (get_type_by_size(ptr_original_size) >= get_type_by_size(size))
 	{
 		alloc_pointer(ptr, size);
+		ptr = (char *)ptr + sizeof(t_memory_pointer);
 		return ptr;
 	}
 	new_ptr = malloc(size);
