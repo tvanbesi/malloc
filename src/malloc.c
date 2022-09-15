@@ -1,5 +1,7 @@
 #include "malloc.h"
 
+static bool new_size_fit_old(size_t original_size, size_t new_size);
+
 t_memory_bucket *g_memory_buckets;
 
 void free(void *ptr)
@@ -53,10 +55,7 @@ void *realloc(void *ptr, size_t size)
 	ptr_original_size = ((t_memory_pointer *)ptr)->size;
 	original_type = get_type_by_size(ptr_original_size);
 	new_type = get_type_by_size(size);
-	if (
-		(original_type <= SMALL && original_type == new_type)
-		|| (original_type == LARGE && new_type == LARGE && ptr_original_size >= size)
-		)
+	if (new_size_fit_old(ptr_original_size, size))
 	{
 		alloc_pointer(ptr, size);
 		ptr = (char *)ptr + sizeof(t_memory_pointer);
@@ -73,4 +72,15 @@ void *realloc(void *ptr, size_t size)
 		ptr_original_size - sizeof(t_memory_pointer));
 	free(ptr);
 	return new_ptr;
+}
+
+static bool new_size_fit_old(size_t original_size, size_t new_size)
+{
+	t_bucket_type original_type, new_type;
+
+	original_type = get_type_by_size(original_size);
+	new_type = get_type_by_size(new_size);
+	return
+		(original_type <= SMALL && original_type == new_type)
+		|| (original_type == LARGE && new_type == LARGE && original_size >= new_size);
 }
