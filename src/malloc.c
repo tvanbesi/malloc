@@ -41,6 +41,7 @@ void *realloc(void *ptr, size_t size)
 	void *new_ptr;
 	size_t ptr_original_size;
 	t_bucket_type original_type, new_type;
+	size_t n_to_cpy;
 
 	if (ptr == NULL)
 	{
@@ -66,10 +67,11 @@ void *realloc(void *ptr, size_t size)
 	{
 		return NULL;
 	}
+	n_to_cpy = ptr_original_size < size ? ptr_original_size : size;
 	ft_memcpy(
 		new_ptr,
 		(char *)ptr + sizeof(t_memory_pointer),
-		ptr_original_size - sizeof(t_memory_pointer));
+		n_to_cpy);
 	free(ptr);
 	return new_ptr;
 }
