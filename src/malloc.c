@@ -40,7 +40,6 @@ void *realloc(void *ptr, size_t size)
 {
 	void *new_ptr;
 	size_t ptr_original_size;
-	t_bucket_type original_type, new_type;
 	size_t n_to_cpy;
 
 	if (ptr == NULL)
@@ -54,8 +53,6 @@ void *realloc(void *ptr, size_t size)
 	}
 	ptr = (char *)ptr - sizeof(t_memory_pointer);
 	ptr_original_size = ((t_memory_pointer *)ptr)->size;
-	original_type = get_type_by_size(ptr_original_size);
-	new_type = get_type_by_size(size);
 	if (new_size_fit_old(ptr_original_size, size))
 	{
 		alloc_pointer(ptr, size);
